@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Bir Sorum Var 💖</title>
+<style>
+    * {
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        overflow: hidden;
+    }
+
+    h1 {
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .buttons {
+        position: relative;
+        width: 100%;
+        height: 300px;
+    }
+
+    button {
+        padding: 15px 30px;
+        font-size: 18px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: absolute;
+    }
+
+    #yesBtn {
+        left: 40%;
+        background-color: #4CAF50;
+        color: white;
+        z-index: 2;
+    }
+
+    #noBtn {
+        left: 55%;
+        background-color: #f44336;
+        color: white;
+        z-index: 3;
+    }
+
+    .fullscreen {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 100vw !important;
+        height: 100vh !important;
+        font-size: 48px !important;
+        border-radius: 0 !important;
+    }
+</style>
+</head>
+
+<body>
+
+<h1 id="question">Benimle konuşmak istiyor musun? 💬</h1>
+
+<div class="buttons">
+    <button id="yesBtn">Evet</button>
+    <button id="noBtn">Hayır</button>
+</div>
+
+<script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const question = document.getElementById("question");
+
+    let noClickCount = 0;
+
+    noBtn.addEventListener("click", () => {
+        noClickCount++;
+
+        // Hayır butonu rastgele kaçsın
+        const maxX = window.innerWidth - noBtn.offsetWidth;
+        const maxY = window.innerHeight - noBtn.offsetHeight;
+
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+
+        noBtn.style.left = randomX + "px";
+        noBtn.style.top = randomY + "px";
+
+        // 5. tıklamadan sonra Evet büyüsün
+        if (noClickCount >= 5 && noClickCount < 8) {
+            const scale = 1 + (noClickCount - 4) * 0.3;
+            yesBtn.style.transform = scale(${scale});
+        }
+
+        // 8. tıklamada final
+        if (noClickCount === 8) {
+            noBtn.style.display = "none";
+
+            yesBtn.classList.add("fullscreen");
+            yesBtn.innerText = "EVET ❤️";
+
+            question.innerText =
+                "sen de benimle tanışmak için can atıyorsun biliyorum 💕";
+        }
+    });
+
+    yesBtn.addEventListener("click", () => {
+        alert("Bunu duyduğuma çok sevindim ❤️");
+    });
+</script>
+
+</body>
+</html>
