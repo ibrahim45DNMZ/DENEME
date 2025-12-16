@@ -1,108 +1,355 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<title>Bir Sorum Var 💬</title>
-
-<style>
-    body {
-        margin: 0;
-        height: 100vh;
-        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        font-family: Arial, sans-serif;
-    }
-
-    h1 {
-        margin-bottom: 40px;
-        text-align: center;
-    }
-
-    button {
-        padding: 15px 30px;
-        font-size: 18px;
-        border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        position: absolute;
-    }
-
-    #yesBtn {
-        background-color: #4CAF50;
-        color: white;
-        left: 40%;
-        top: 60%;
-        z-index: 1;
-    }
-
-    #noBtn {
-        background-color: #f44336;
-        color: white;
-        left: 55%;
-        top: 60%;
-        z-index: 2;
-    }
-
-    .full {
-        width: 100vw !important;
-        height: 100vh !important;
-        left: 0 !important;
-        top: 0 !important;
-        font-size: 48px !important;
-        border-radius: 0 !important;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Tanışma Simülasyonu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0d1117, #161b22);
+            color: #c9d1d9;
+            padding: 20px;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(13, 17, 23, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #30363d;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        
+        h1 {
+            color: #58a6ff;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .github-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background-color: #0d1117;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid #58a6ff;
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
+        }
+        
+        .github-logo img {
+            width: 80%;
+            height: 80%;
+            filter: invert(1);
+        }
+        
+        .question {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: #f0f6fc;
+            line-height: 1.5;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            min-height: 120px;
+            position: relative;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .yes-btn {
+            background: linear-gradient(to right, #238636, #2ea043);
+            color: white;
+            z-index: 10;
+        }
+        
+        .yes-btn:hover {
+            background: linear-gradient(to right, #2ea043, #3fb950);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(46, 160, 67, 0.5);
+        }
+        
+        .no-btn {
+            background: linear-gradient(to right, #da3633, #f85149);
+            color: white;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .no-btn:hover {
+            background: linear-gradient(to right, #f85149, #ff7b72);
+        }
+        
+        .final-message {
+            font-size: 2rem;
+            color: #58a6ff;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: rgba(88, 166, 255, 0.1);
+            border-radius: 10px;
+            border-left: 5px solid #58a6ff;
+            display: none;
+            animation: fadeIn 1s ease;
+        }
+        
+        .counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #238636;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .question {
+                font-size: 1.3rem;
+            }
+            
+            .buttons-container {
+                gap: 20px;
+            }
+            
+            .btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="container">
+        <div class="github-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+        </div>
+        
+        <h1>GitHub</h1>
+        <div class="question">GitHub da benimle konuşmak istiyor musun?</div>
+        
+        <div class="counter" id="counter">0</div>
+        
+        <div class="buttons-container">
+            <button class="btn yes-btn" id="yesBtn">Evet</button>
+            <button class="btn no-btn" id="noBtn">Hayır</button>
+        </div>
+        
+        <div class="final-message" id="finalMessage">Sen de benimle tanışmak için can atıyorsun biliyorum</div>
+    </div>
 
-<h1 id="question">Benimle konuşmak istiyor musun? 💬</h1>
-
-<button id="yesBtn">Evet</button>
-<button id="noBtn">Hayır</button>
-
-<script>
-let noClick = 0;
-
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const question = document.getElementById("question");
-
-noBtn.onclick = () => {
-    noClick++;
-
-    // Hayır kaçsın
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-
-    // 5'ten sonra evet büyüsün
-    if (noClick >= 5 && noClick < 8) {
-        yesBtn.style.transform = scale(${1 + (noClick - 4) * 0.4});
-    }
-
-    // 8. tıklama
-    if (noClick === 8) {
-        noBtn.style.display = "none";
-        yesBtn.classList.add("full");
-    }
-};
-
-yesBtn.onclick = () => {
-    document.body.innerHTML = `
-        <h1 style="text-align:center; padding:40px;">
-        sen de benimle tanışmak için can atıyorsun biliyorum 💕
-        </h1>
-    `;
-};
-</script>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const finalMessage = document.getElementById('finalMessage');
+            const counter = document.getElementById('counter');
+            const container = document.querySelector('.container');
+            const buttonsContainer = document.querySelector('.buttons-container');
+            
+            let clickCount = 0;
+            let yesBtnSize = 1;
+            let noBtnRunning = false;
+            
+            // GitHub logosu için SVG
+            const githubLogo = document.querySelector('.github-logo svg');
+            githubLogo.setAttribute('fill', '#c9d1d9');
+            
+            // Hayır butonuna tıklandığında
+            noBtn.addEventListener('click', function() {
+                clickCount++;
+                counter.textContent = clickCount;
+                
+                // Hayır butonunu rastgele konuma taşı
+                moveNoButton();
+                
+                // 5. tıklamadan sonra evet butonunu büyütmeye başla
+                if (clickCount >= 5) {
+                    yesBtnSize += 0.2;
+                    yesBtn.style.transform = scale(${yesBtnSize});
+                    
+                    // 8. tıklamada evet butonu ekranı kaplasın
+                    if (clickCount >= 8) {
+                        // Hayır butonunu gizle
+                        noBtn.style.display = 'none';
+                        
+                        // Evet butonunu büyüt
+                        yesBtn.style.position = 'absolute';
+                        yesBtn.style.width = '100%';
+                        yesBtn.style.height = '100%';
+                        yesBtn.style.fontSize = '3rem';
+                        yesBtn.style.borderRadius = '15px';
+                        yesBtn.style.zIndex = '100';
+                        yesBtn.style.transform = 'scale(1)';
+                        
+                        // Buton konteynerini tam ekran yap
+                        buttonsContainer.style.position = 'fixed';
+                        buttonsContainer.style.top = '0';
+                        buttonsContainer.style.left = '0';
+                        buttonsContainer.style.width = '100%';
+                        buttonsContainer.style.height = '100%';
+                        buttonsContainer.style.zIndex = '1000';
+                        buttonsContainer.style.backgroundColor = 'rgba(13, 17, 23, 0.95)';
+                        buttonsContainer.style.borderRadius = '0';
+                        
+                        // Counter'ı gizle
+                        counter.style.display = 'none';
+                    }
+                }
+            });
+            
+            // Evet butonuna tıklandığında
+            yesBtn.addEventListener('click', function() {
+                if (clickCount < 8) {
+                    // Normal evet butonu işlevi
+                    finalMessage.style.display = 'block';
+                    yesBtn.style.display = 'none';
+                    noBtn.style.display = 'none';
+                    counter.style.display = 'none';
+                    
+                    // Mesajı göster
+                    finalMessage.style.animation = 'none';
+                    setTimeout(() => {
+                        finalMessage.style.animation = 'fadeIn 1s ease';
+                    }, 10);
+                } else {
+                    // 8. tıklamadan sonraki evet butonu işlevi
+                    buttonsContainer.style.display = 'none';
+                    finalMessage.style.display = 'block';
+                    finalMessage.style.fontSize = '3rem';
+                    finalMessage.style.padding = '40px';
+                    finalMessage.style.marginTop = '0';
+                    
+                    // Konteyneri büyüt
+                    container.style.padding = '60px 30px';
+                    container.style.minHeight = '70vh';
+                    container.style.display = 'flex';
+                    container.style.flexDirection = 'column';
+                    container.style.justifyContent = 'center';
+                }
+            });
+            
+            // Hayır butonunu rastgele konuma taşıma fonksiyonu
+            function moveNoButton() {
+                if (noBtnRunning) return;
+                
+                noBtnRunning = true;
+                
+                // Buton konteynerinin boyutlarını al
+                const containerRect = buttonsContainer.getBoundingClientRect();
+                
+                // Butonun mevcut konumunu al
+                const btnRect = noBtn.getBoundingClientRect();
+                
+                // Rastgele konum hesapla (konteyner sınırları içinde)
+                const maxX = containerRect.width - btnRect.width;
+                const maxY = containerRect.height - btnRect.height;
+                
+                // Mevcut konumdan farklı bir konum seç
+                let newX, newY;
+                do {
+                    newX = Math.random() * maxX;
+                    newY = Math.random() * maxY;
+                } while (Math.abs(newX - parseFloat(noBtn.style.left || 0)) < 50 && 
+                         Math.abs(newY - parseFloat(noBtn.style.top || 0)) < 50);
+                
+                // Yeni konumu uygula
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = ${newX}px;
+                noBtn.style.top = ${newY}px;
+                noBtn.style.transform = 'translate(0, 0)';
+                
+                // Butonun hareket etmesini sağla
+                noBtn.style.transition = 'all 0.5s ease';
+                
+                // Kısa bir süre sonra butonun tekrar tıklanabilir olmasını sağla
+                setTimeout(() => {
+                    noBtnRunning = false;
+                }, 500);
+            }
+            
+            // Sayfa yüklendiğinde hayır butonuna ilk konumu ver
+            setTimeout(() => {
+                moveNoButton();
+            }, 500);
+            
+            // Butonlara hover efekti ekle
+            yesBtn.addEventListener('mouseenter', function() {
+                if (clickCount >= 5 && clickCount < 8) {
+                    this.style.animation = 'pulse 0.5s ease';
+                }
+            });
+            
+            yesBtn.addEventListener('mouseleave', function() {
+                this.style.animation = '';
+            });
+        });
+    </script>
 </body>
 </html>
