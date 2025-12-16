@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorum Var</title>
+    <title>Sorulacak Soru</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
         
         body {
@@ -18,185 +18,208 @@
             align-items: center;
             min-height: 100vh;
             background: #ffd6e7; /* Pudra pembesi arka plan */
-            color: #333;
             padding: 20px;
-            overflow: hidden;
         }
         
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 800px; /* Konteyner genişliğini arttırdım */
             text-align: center;
-            padding: 40px 30px;
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.2);
-            border: 2px solid #ffb6c1;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-        
-        .container:hover {
-            transform: translateY(-5px);
+            padding: 50px 40px;
+            background-color: white;
+            border-radius: 25px;
             box-shadow: 0 20px 40px rgba(255, 105, 180, 0.3);
+            border: 3px solid #ffb6c1;
         }
         
         .question {
-            font-size: 1.8rem;
-            margin-bottom: 50px;
+            font-size: 2.2rem;
+            margin-bottom: 60px;
             color: #d81b60;
-            line-height: 1.5;
-            font-weight: 600;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            line-height: 1.4;
+            font-weight: bold;
+            padding: 0 20px;
         }
         
         .buttons-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 40px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-            min-height: 120px;
+            margin-top: 40px;
             position: relative;
+            min-height: 250px; /* Yüksekliği arttırdım */
             background-color: rgba(255, 182, 193, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px dashed #ffb6c1;
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px dashed #ffb6c1;
+            width: 100%;
         }
         
         .btn {
-            padding: 18px 50px;
-            font-size: 1.4rem;
+            padding: 25px 70px; /* Buton padding'ini arttırdım */
+            font-size: 1.8rem; /* Yazı boyutunu arttırdım */
             font-weight: bold;
             border: none;
-            border-radius: 15px;
+            border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            min-width: 160px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            min-width: 220px; /* Minimum genişliği arttırdım */
             position: absolute;
-            z-index: 10;
+            z-index: 100;
         }
         
         .yes-btn {
             background: linear-gradient(to right, #4CAF50, #2E7D32);
             color: white;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 20%; /* Sol butonu daha sola aldım */
             top: 50%;
             transform: translate(-50%, -50%);
         }
         
         .yes-btn:hover {
             background: linear-gradient(to right, #66BB6A, #388E3C);
-            transform: translate(-50%, -50%) scale(1.05);
-            box-shadow: 0 0 25px rgba(76, 175, 80, 0.4);
+            transform: translate(-50%, -50%) scale(1.08);
+            box-shadow: 0 0 30px rgba(76, 175, 80, 0.5);
         }
         
         .no-btn {
             background: linear-gradient(to right, #F44336, #C62828);
             color: white;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 80%; /* Sağ butonu daha sağa aldım */
             top: 50%;
             transform: translate(-50%, -50%);
-            margin-left: 100px;
         }
         
         .no-btn:hover {
             background: linear-gradient(to right, #EF5350, #D32F2F);
-            transform: translate(-50%, -50%) scale(1.05);
+            transform: translate(-50%, -50%) scale(1.08);
+            box-shadow: 0 0 30px rgba(244, 67, 54, 0.5);
         }
         
         .final-message {
-            font-size: 2.2rem;
+            font-size: 2.8rem; /* Mesaj boyutunu arttırdım */
             color: #D81B60;
-            margin-top: 30px;
-            padding: 30px;
+            margin-top: 40px;
+            padding: 40px;
             background: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(255, 215, 231, 0.3));
-            border-radius: 15px;
-            border-left: 6px solid #D81B60;
+            border-radius: 20px;
+            border-left: 8px solid #D81B60;
             display: none;
             animation: fadeIn 1s ease;
             line-height: 1.4;
-            font-weight: 600;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
         }
         
         .counter {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 25px;
+            right: 25px;
             background: linear-gradient(to right, #F44336, #D81B60);
             color: white;
-            width: 45px;
-            height: 45px;
+            width: 60px; /* Sayacı büyüttüm */
+            height: 60px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            font-size: 1.3rem;
-            box-shadow: 0 5px 15px rgba(216, 27, 96, 0.3);
-            border: 2px solid white;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.4);
+            border: 3px solid white;
+            z-index: 1000;
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
         @keyframes pulse {
             0% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.08); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
             100% { transform: translate(-50%, -50%) scale(1); }
-        }
-        
-        @keyframes grow {
-            0% { transform: translate(-50%, -50%) scale(1); }
-            100% { transform: translate(-50%, -50%) scale(1.5); }
         }
         
         @keyframes shake {
             0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-            25% { transform: translate(-50%, -50%) rotate(5deg); }
-            75% { transform: translate(-50%, -50%) rotate(-5deg); }
+            25% { transform: translate(-50%, -50%) rotate(8deg); }
+            75% { transform: translate(-50%, -50%) rotate(-8deg); }
         }
         
-        @media (max-width: 600px) {
+        /* Mobil uyumluluk */
+        @media (max-width: 768px) {
             .container {
-                padding: 30px 20px;
+                padding: 40px 25px;
+                max-width: 95%;
             }
             
             .question {
-                font-size: 1.5rem;
-                margin-bottom: 40px;
+                font-size: 1.8rem;
+                margin-bottom: 50px;
+                padding: 0 10px;
             }
             
             .buttons-container {
-                gap: 20px;
-                padding: 15px;
-                min-height: 150px;
+                min-height: 300px; /* Mobilde daha yüksek */
+                padding: 30px 20px;
+                flex-direction: column;
+                gap: 40px; /* Mobilde butonlar arası boşluk */
             }
             
             .btn {
-                padding: 15px 35px;
-                font-size: 1.3rem;
-                min-width: 140px;
+                padding: 22px 50px;
+                font-size: 1.6rem;
+                min-width: 200px;
+                position: relative; /* Mobilde relative yaptım */
+                left: auto !important;
+                top: auto !important;
+                transform: none !important;
+                margin: 10px 0;
+            }
+            
+            .yes-btn, .no-btn {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                width: 80%;
+                margin: 15px auto;
+            }
+            
+            .final-message {
+                font-size: 2rem;
+                padding: 30px 20px;
+            }
+            
+            .counter {
+                width: 55px;
+                height: 55px;
+                font-size: 1.6rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .question {
+                font-size: 1.6rem;
+            }
+            
+            .btn {
+                padding: 20px 40px;
+                font-size: 1.4rem;
+                min-width: 180px;
             }
             
             .final-message {
                 font-size: 1.8rem;
-                padding: 20px;
+                padding: 25px 15px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="question">benimle konuşmak istiyor musun?</div>
+        <div class="question">Benimle konuşmak istiyor musun?</div>
         
         <div class="counter" id="counter">0</div>
         
@@ -220,244 +243,225 @@
             
             let clickCount = 0;
             let yesBtnSize = 1;
-            let noBtnRunning = false;
-            let buttonPositions = [];
+            let isMoving = false;
+            
+            // Butonlar arasındaki minimum mesafe (piksel cinsinden)
+            const MIN_DISTANCE = 200;
             
             // Başlangıçta butonları yan yana yerleştir
             positionButtonsInitially();
             
-            // Buton konumlarını saklamak için dizi
-            function updateButtonPositions() {
-                buttonPositions = [
-                    {
-                        element: yesBtn,
-                        x: parseFloat(yesBtn.style.left) || 50,
-                        y: parseFloat(yesBtn.style.top) || 50,
-                        width: yesBtn.offsetWidth,
-                        height: yesBtn.offsetHeight
-                    },
-                    {
-                        element: noBtn,
-                        x: parseFloat(noBtn.style.left) || 150,
-                        y: parseFloat(noBtn.style.top) || 50,
-                        width: noBtn.offsetWidth,
-                        height: noBtn.offsetHeight
-                    }
-                ];
-            }
-            
-            // Butonların çakışıp çakışmadığını kontrol et
-            function checkOverlap(btn1, btn2) {
-                const rect1 = btn1.getBoundingClientRect();
-                const rect2 = btn2.getBoundingClientRect();
+            function positionButtonsInitially() {
+                const containerWidth = buttonsContainer.offsetWidth;
+                const containerHeight = buttonsContainer.offsetHeight;
                 
-                return !(
-                    rect1.right < rect2.left || 
-                    rect1.left > rect2.right || 
-                    rect1.bottom < rect2.top || 
-                    rect1.top > rect2.bottom
-                );
+                // Masaüstü için (geniş ekran)
+                if (window.innerWidth > 768) {
+                    // Evet butonu - solda (daha solda)
+                    yesBtn.style.left = '25%';
+                    yesBtn.style.top = '50%';
+                    yesBtn.style.transform = 'translate(-50%, -50%)';
+                    
+                    // Hayır butonu - sağda (daha sağda)
+                    noBtn.style.left = '75%';
+                    noBtn.style.top = '50%';
+                    noBtn.style.transform = 'translate(-50%, -50%)';
+                } else {
+                    // Mobil için butonları ortala ve alt alta göster
+                    yesBtn.style.position = 'relative';
+                    noBtn.style.position = 'relative';
+                    yesBtn.style.left = 'auto';
+                    noBtn.style.left = 'auto';
+                    yesBtn.style.top = 'auto';
+                    noBtn.style.top = 'auto';
+                    yesBtn.style.transform = 'none';
+                    noBtn.style.transform = 'none';
+                    yesBtn.style.margin = '20px auto';
+                    noBtn.style.margin = '20px auto';
+                }
             }
             
-            // Güvenli bir pozisyon bul
-            function findSafePosition(movingBtn, fixedBtn) {
+            // İki nokta arasındaki mesafeyi hesapla
+            function calculateDistance(x1, y1, x2, y2) {
+                return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            }
+            
+            // Güvenli pozisyon bul (mesafe kontrolü ile)
+            function findSafePosition(movingBtn) {
                 const containerRect = buttonsContainer.getBoundingClientRect();
-                const movingBtnRect = movingBtn.getBoundingClientRect();
-                const fixedBtnRect = fixedBtn.getBoundingClientRect();
+                const btnRect = movingBtn.getBoundingClientRect();
+                const otherBtn = movingBtn === noBtn ? yesBtn : noBtn;
+                const otherBtnRect = otherBtn.getBoundingClientRect();
                 
-                const maxX = containerRect.width - movingBtnRect.width;
-                const maxY = containerRect.height - movingBtnRect.height;
+                const maxX = containerRect.width - btnRect.width;
+                const maxY = containerRect.height - btnRect.height;
                 
-                let attempts = 0;
                 let newX, newY;
-                let overlap = true;
+                let attempts = 0;
+                let foundSafePosition = false;
                 
-                // Çakışma olmayana kadar rastgele pozisyon dene
-                while (overlap && attempts < 100) {
+                // Diğer butondan yeterince uzak bir pozisyon bulana kadar dene
+                do {
                     newX = Math.random() * maxX;
                     newY = Math.random() * maxY;
                     
-                    // Yeni pozisyonu test et
-                    movingBtn.style.left = ${newX}px;
-                    movingBtn.style.top = ${newY}px;
+                    // Diğer butonun merkezini hesapla
+                    const otherCenterX = otherBtnRect.left - containerRect.left + otherBtnRect.width / 2;
+                    const otherCenterY = otherBtnRect.top - containerRect.top + otherBtnRect.height / 2;
                     
-                    overlap = checkOverlap(movingBtn, fixedBtn);
+                    // Yeni pozisyonun merkezini hesapla
+                    const newCenterX = newX + btnRect.width / 2;
+                    const newCenterY = newY + btnRect.height / 2;
+                    
+                    // Mesafeyi hesapla
+                    const distance = calculateDistance(newCenterX, newCenterY, otherCenterX, otherCenterY);
+                    
+                    // Mesafe yeterli mi kontrol et
+                    if (distance >= MIN_DISTANCE) {
+                        foundSafePosition = true;
+                    }
+                    
                     attempts++;
-                }
-                
-                // Hala çakışıyorsa, sabit butondan uzaklaştır
-                if (overlap) {
-                    // Sabit butonun merkezinden uzaklaş
-                    const fixedCenterX = fixedBtnRect.left + fixedBtnRect.width/2;
-                    const fixedCenterY = fixedBtnRect.top + fixedBtnRect.height/2;
-                    
-                    // Sabit butondan uzak bir yöne git
-                    const angle = Math.random() * 2 * Math.PI;
-                    const distance = Math.max(fixedBtnRect.width, fixedBtnRect.height) * 1.5;
-                    
-                    newX = fixedCenterX + Math.cos(angle) * distance - movingBtnRect.width/2;
-                    newY = fixedCenterY + Math.sin(angle) * distance - movingBtnRect.height/2;
-                    
-                    // Sınırları kontrol et
-                    newX = Math.max(10, Math.min(newX, maxX - 10));
-                    newY = Math.max(10, Math.min(newY, maxY - 10));
-                }
+                    if (attempts > 150) {
+                        // Çok denedik, minimum mesafeyi azalt
+                        if (distance >= MIN_DISTANCE * 0.7) {
+                            foundSafePosition = true;
+                        }
+                    }
+                } while (!foundSafePosition && attempts < 200);
                 
                 return { x: newX, y: newY };
             }
             
-            // Başlangıçta butonları yan yana yerleştir
-            function positionButtonsInitially() {
-                const containerRect = buttonsContainer.getBoundingClientRect();
-                const btnWidth = 160; // Buton genişliği
-                const btnHeight = 60; // Buton yüksekliği
+            // Hayır butonunu hareket ettir
+            function moveNoButton() {
+                if (isMoving || clickCount >= 5) return;
                 
-                // Container'ın ortasını bul
-                const centerX = containerRect.width / 2;
-                const centerY = containerRect.height / 2;
+                isMoving = true;
                 
-                // Evet butonunu sola yerleştir
-                yesBtn.style.left = ${centerX - btnWidth - 30}px;
-                yesBtn.style.top = ${centerY - btnHeight/2}px;
-                
-                // Hayır butonunu sağa yerleştir
-                noBtn.style.left = ${centerX + 30}px;
-                noBtn.style.top = ${centerY - btnHeight/2}px;
-                
-                updateButtonPositions();
+                // Sadece masaüstünde hareket ettir
+                if (window.innerWidth > 768) {
+                    // Güvenli pozisyon bul
+                    const safePos = findSafePosition(noBtn);
+                    
+                    // Yeni pozisyona hareket et
+                    noBtn.style.left = ${safePos.x}px;
+                    noBtn.style.top = ${safePos.y}px;
+                    noBtn.style.transform = 'translate(0, 0)';
+                    noBtn.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    
+                    // Hareket bittikten sonra
+                    setTimeout(() => {
+                        isMoving = false;
+                    }, 600);
+                } else {
+                    // Mobilde sadece salla efekti
+                    noBtn.style.animation = 'shake 0.5s ease';
+                    setTimeout(() => {
+                        noBtn.style.animation = '';
+                        isMoving = false;
+                    }, 500);
+                }
             }
             
             // Hayır butonuna tıklandığında
             noBtn.addEventListener('click', function(e) {
-                e.preventDefault();
+                e.stopPropagation();
                 clickCount++;
                 counter.textContent = clickCount;
                 
                 // Sayacı salla
-                counter.style.animation = 'shake 0.3s ease';
+                counter.style.transform = 'scale(1.2)';
                 setTimeout(() => {
-                    counter.style.animation = '';
-                }, 300);
+                    counter.style.transform = 'scale(1)';
+                }, 200);
                 
-                // Hayır butonunu güvenli konuma taşı
-                moveNoButtonSafely();
+                // Hareket ettir (sadece masaüstünde)
+                if (window.innerWidth > 768) {
+                    moveNoButton();
+                }
                 
-                // 3. tıklamadan sonra evet butonunu büyütmeye başla
-                if (clickCount >= 5) {
-                    yesBtnSize += 0.2;
+                // 3. tıklamadan sonra evet butonunu büyüt
+                if (clickCount >= 3) {
+                    yesBtnSize += 0.25;
                     yesBtn.style.transform = translate(-50%, -50%) scale(${yesBtnSize});
                     
-                    // Evet butonuna pulsing animasyonu ekle
-                    yesBtn.style.animation = 'pulse 0.8s infinite';
+                    // Titreme efekti
+                    yesBtn.style.animation = 'pulse 1s infinite';
+                }
+                
+                // 5. tıklamada
+                if (clickCount >= 5) {
+                    // Hayır butonunu gizle
+                    noBtn.style.display = 'none';
                     
-                    // 5. tıklamada evet butonu ekranı kaplasın
-                    if (clickCount >= 8) {
-                        // Hayır butonunu gizle
-                        noBtn.style.display = 'none';
-                        
-                        // Evet butonunu büyüt
-                        yesBtn.style.width = '90%';
-                        yesBtn.style.height = 'auto';
-                        yesBtn.style.padding = '25px';
-                        yesBtn.style.fontSize = '2.2rem';
-                        yesBtn.style.borderRadius = '20px';
-                        yesBtn.style.animation = 'grow 0.5s forwards';
-                        yesBtn.style.left = '50%';
-                        yesBtn.style.top = '50%';
-                        yesBtn.style.zIndex = '100';
-                        
-                        // Soru metnini güncelle
-                        question.textContent = "Kaçamazsın! Evet demelisin!";
-                        question.style.color = "#F44336";
-                        question.style.fontWeight = "bold";
-                        
-                        // Counter'ı gizle
-                        counter.style.display = 'none';
-                    }
+                    // Evet butonunu büyüt
+                    yesBtn.style.width = '70%';
+                    yesBtn.style.height = 'auto';
+                    yesBtn.style.padding = '30px 50px';
+                    yesBtn.style.fontSize = '2.2rem';
+                    yesBtn.style.left = '50%';
+                    yesBtn.style.top = '50%';
+                    yesBtn.style.transform = 'translate(-50%, -50%) scale(1.6)';
+                    yesBtn.style.zIndex = '1000';
+                    yesBtn.style.boxShadow = '0 15px 35px rgba(76, 175, 80, 0.6)';
+                    
+                    // Soruyu değiştir
+                    question.textContent = "Kaçamazsın! Evet demelisin!";
+                    question.style.color = "#F44336";
+                    question.style.animation = 'shake 0.8s infinite';
+                    
+                    // Sayacı gizle
+                    counter.style.display = 'none';
                 }
             });
             
             // Evet butonuna tıklandığında
-            yesBtn.addEventListener('click', function() {
-                // Soruyu gizle
-                question.style.display = 'none';
+            yesBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
                 
-                // Butonları gizle
+                // Her şeyi gizle
+                question.style.display = 'none';
                 yesBtn.style.display = 'none';
                 noBtn.style.display = 'none';
-                
-                // Counter'ı gizle
                 counter.style.display = 'none';
-                
-                // Buton konteynerini gizle
                 buttonsContainer.style.display = 'none';
                 
                 // Mesajı göster
                 finalMessage.style.display = 'block';
                 
                 // Konteyneri yeniden boyutlandır
-                container.style.padding = '50px 30px';
-                container.style.minHeight = '300px';
+                container.style.padding = '60px 40px';
+                container.style.minHeight = '400px';
                 container.style.display = 'flex';
                 container.style.flexDirection = 'column';
                 container.style.justifyContent = 'center';
                 container.style.alignItems = 'center';
                 
-                // Mesaja animasyon ekle
+                // Mesaja özel animasyon
                 finalMessage.style.animation = 'fadeIn 1.5s ease';
-                
-                // Mesajı biraz salla
-                setTimeout(() => {
-                    finalMessage.style.animation = 'shake 0.5s ease';
-                    setTimeout(() => {
-                        finalMessage.style.animation = '';
-                    }, 500);
-                }, 1500);
             });
             
-            // Hayır butonunu güvenli konuma taşıma fonksiyonu
-            function moveNoButtonSafely() {
-                if (noBtnRunning) return;
-                
-                noBtnRunning = true;
-                
-                // Güvenli pozisyon bul
-                const safePosition = findSafePosition(noBtn, yesBtn);
-                
-                // Yeni konumu uygula
-                noBtn.style.left = ${safePosition.x}px;
-                noBtn.style.top = ${safePosition.y}px;
-                noBtn.style.transform = 'translate(0, 0)';
-                noBtn.style.transition = 'all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55)';
-                
-                // Buton üzerine gelindiğinde kaçması için
-                noBtn.addEventListener('mouseover', function() {
-                    if (clickCount > 0 && clickCount < 5) {
-                        const safePosition = findSafePosition(noBtn, yesBtn);
-                        noBtn.style.left = ${safePosition.x}px;
-                        noBtn.style.top = ${safePosition.y}px;
-                        noBtn.style.transition = 'all 0.4s ease';
+            // Fare ile üzerine gelindiğinde de kaçsın (sadece masaüstünde)
+            if (window.innerWidth > 768) {
+                noBtn.addEventListener('mouseenter', function() {
+                    if (clickCount < 5 && !isMoving) {
+                        moveNoButton();
                     }
                 });
-                
-                // Kısa bir süre sonra butonun tekrar tıklanabilir olmasını sağla
-                setTimeout(() => {
-                    noBtnRunning = false;
-                    updateButtonPositions();
-                }, 500);
             }
             
+            // Pencere boyutu değiştiğinde butonları yeniden konumlandır
+            window.addEventListener('resize', function() {
+                if (clickCount === 0) {
+                    positionButtonsInitially();
+                }
+            });
+            
             // Sayfa yüklendiğinde butonları konumlandır
-            setTimeout(() => {
+            window.addEventListener('load', function() {
                 positionButtonsInitially();
-                
-                // Fare hareketini dinle - buton üzerine gelindiğinde kaçsın
-                noBtn.addEventListener('mouseover', function() {
-                    if (clickCount > 0 && clickCount < 5) {
-                        moveNoButtonSafely();
-                    }
-                });
-            }, 100);
+            });
         });
     </script>
 </body>
